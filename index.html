@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f8ff">
+  <title>Rabbit.HRIS · Biometric Attendance</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <main class="attendance-shell">
+    <header class="brand">
+      <div class="brand-content"><div class="brand-lockup"><img class="brand-logo" src="images/logo.png" alt="Rabbit" width="400" height="194"><h1><span class="visually-hidden">RABBIT</span><span>.HRIS</span></h1></div><p>PEOPLE. CONNECTED.</p></div>
+    </header>
+
+    <section class="attendance-card" id="attendance-card" aria-labelledby="screen-title">
+      <div class="card-topline"><span class="eyebrow">EMPLOYEE PORTAL</span><span class="secure-label"><span aria-hidden="true">●</span> Secure access</span></div>
+      <div id="login-screen">
+        <div class="hero-icon" aria-hidden="true"><svg viewBox="0 0 64 64" fill="none"><path d="M22 9H12a3 3 0 0 0-3 3v10m33-13h10a3 3 0 0 1 3 3v10M9 42v10a3 3 0 0 0 3 3h10m20 0h10a3 3 0 0 0 3-3V42" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M23 25v5m18-5v5m-10-2v9h4m-12 6c5 5 13 5 18 0" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></div>
+        <h2 id="screen-title">Biometric Attendance</h2>
+        <p class="intro">Your workday starts with you.<br>Sign in with a quick face verification.</p>
+        <form id="login-form">
+          <label for="employee-id">Employee ID</label>
+          <div class="input-wrap"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3" stroke="currentColor" stroke-width="1.6"/><circle cx="9" cy="10" r="2" stroke="currentColor" stroke-width="1.6"/><path d="M6 16c0-3 6-3 6 0m3-6h3m-3 4h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><input id="employee-id" name="employeeId" value="EMP-00125" placeholder="Enter your employee ID" autocomplete="username" maxlength="64" required aria-describedby="id-hint"></div>
+          <p id="id-hint" class="field-hint">Use the employee ID provided by your organization.</p>
+          <button class="primary-button" type="submit"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 3H4a1 1 0 0 0-1 1v4m13-5h4a1 1 0 0 1 1 1v4M3 16v4a1 1 0 0 0 1 1h4m8 0h4a1 1 0 0 0 1-1v-4M8 9v2m8-2v2m-7 5c2 2 4 2 6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Biometric Login<span class="button-arrow" aria-hidden="true">→</span></button>
+        </form>
+        <p class="camera-note">Your camera will be used for face verification.</p>
+      </div>
+
+      <div id="verification-screen" hidden>
+        <button id="back-button" class="back-button" type="button">← Back to login</button>
+        <h2 id="verification-title">Face Verification</h2>
+        <p class="intro">A quick check before you start your day.</p>
+        <div class="employee-badge">Employee ID <strong id="verification-id"></strong></div>
+        <div class="camera-frame" id="camera-frame">
+          <video id="camera-video" autoplay playsinline muted aria-label="Live front camera preview"></video>
+          <div class="camera-placeholder" id="camera-placeholder"><span aria-hidden="true">◎</span><p>Starting your camera…</p></div>
+          <div class="face-guide" aria-hidden="true"></div>
+          <div class="scan-line" aria-hidden="true"></div>
+          <span class="live-badge" id="live-badge" hidden><i></i> LIVE</span>
+        </div>
+        <p id="camera-status" class="camera-status" role="status" aria-live="polite">Allow camera access to begin.</p>
+        <p id="camera-help" class="field-hint verification-hint">Position your face inside the frame</p>
+        <div id="verification-progress" class="verification-progress" hidden>
+          <div class="progress-caption"><span id="progress-label">Liveness Verification</span><span id="progress-percent">0%</span></div>
+          <div id="progress-track" class="progress-track" role="progressbar" aria-label="Verification progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="progress-fill" class="progress-fill"></div></div>
+        </div>
+        <section id="identity-result" class="identity-result" aria-labelledby="identity-title" hidden>
+          <h3 id="identity-title">✓ Identity Verified</h3>
+          <dl><div><dt>Employee ID</dt><dd id="identity-employee-id">EMP-00125</dd></div><div><dt>Employee Status</dt><dd>Active</dd></div><div><dt>Face Match</dt><dd>Verified</dd></div><div><dt>Liveness</dt><dd>Verified</dd></div></dl>
+        </section>
+        <button id="retry-button" class="primary-button" type="button" hidden>Try camera again</button>
+        <button id="continue-button" class="primary-button" type="button" hidden>Continue<span class="button-arrow" aria-hidden="true">→</span></button>
+        <p class="demo-note">DEMO MODE · Face recognition is simulated</p>
+      </div>
+
+      <footer class="trust-indicators" aria-label="Attendance features">
+        <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M8 3H4v5m12-5h4v5M4 16v5h4m8 0h4v-5M8 9v2m8-2v2m-7 5c2 2 4 2 6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span>Face<br>Recognition</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg><span>GPS<br>Verification</span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z" stroke="currentColor" stroke-width="1.6"/><path d="m8 12 3 3 5-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Secure<br>Attendance</span></div>
+      </footer>
+    </section>
+    <footer class="page-footer"><span>Powered by Rabbit.HRIS</span><span class="footer-dot">·</span><span>Made for your workday</span></footer>
+  </main>
+</body>
+</html>
